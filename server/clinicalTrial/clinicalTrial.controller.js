@@ -3,6 +3,7 @@ const { graphql } = require('graphql');
 const ClinicalTrialService = require('./clinicalTrial.service');
 const clinicalTrialSchema = require('./clinicalTrial.schema');
 
+// Resolver for Graphql
 const root = {
     clinicalTrials: async () => {
         const data = await ClinicalTrialService.getAllTrials();
@@ -10,6 +11,7 @@ const root = {
     }
 }
 
+// Create New Clinical Trial
 exports.createNewTrial = async (req, res) => {
     try {
         const trialData = req.body;

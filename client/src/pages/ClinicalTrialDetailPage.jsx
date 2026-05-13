@@ -3,47 +3,59 @@ import { useLocation, useNavigate } from "react-router";
 import CreateClinicalTrial from "../components/CreateClinicalTrial";
 import AddParticipant from "../components/AddParticipant";
 import SearchAndFilterList from "../components/SearchAndFilterList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteParticipantById, updateClinicalTrial } from "../services/api";
 import { useAuthStore } from "../store";
 import Check from "@mui/icons-material/Check"
 import dayjs from "dayjs";
 
-const ParticipantListItem = ({ navigateTo, item, deleteItem }) => {
+const ParticipantListItem = ({ navigateTo, item, deleteItem, trialStatus }) => {
+    const { role } = useAuthStore(state => state.user);
     return <ListItem
         key={item.id}
         sx={{
             borderRadius: "10px",
             border: "1px solid #bdbdbd",
             marginBottom: "1rem",
-            cursor: typeof navigateTo === 'function' ? "cursor" : "default"
+            cursor: typeof navigateTo === 'function' ? "pointer" : "default"
         }}
         secondaryAction={
-            <IconButton onClick={
+            trialStatus === "Active" && role === "admin" && (<IconButton onClick={
                 () => deleteItem(item.id)}>
                 <DeleteIcon />
-            </IconButton>
+            </IconButton>)
         }
     >
         <ListItemText
-            onClick={() => navigateTo(item.id)}
             primary={`${item.name} (${item.age})`}
-            secondary={`${item.gender}, ${item.enrollment_status}, ${item.location}`}
+            secondary={`${item.gender}, ${item.location}`}
         />
     </ListItem>
 }
 
 
 const ClinicalTrialDetailPage = () => {
+    const navigate = useNavigate();
     const { state } = useLocation();
-    const [participants, setParticipants] = useState(state.participants || []);
+
+    const [participants, setParticipants] = useState(state?.participants || []);
     const { role } = useAuthStore(state => state.user)
     const updateParticipantData = (participantData) => {
         setParticipants(curr => [...curr, participantData])
     }
-    const navigate = useNavigate();
     const isEmpty = participants.length === 0;
+
+    useEffect(() => {
+        // navigate away
+        if (!state) {
+            navigate("/dashboard", { replace: true });
+        }
+    }, [state, navigate]);
+
+    if (!state) {
+        return null;
+    }
 
     const onDeleteParticipant = async (participantId) => {
         const result = await deleteParticipantById(state.id, participantId);
@@ -96,7 +108,7 @@ const ClinicalTrialDetailPage = () => {
                         onDelete={onDeleteParticipant}
                         data={participants}
                         filterKey={["gender", "location"]}
-                        listItem={(props) => <ParticipantListItem {...props} />}
+                        listItem={(props) => <ParticipantListItem {...props} trialStatus={state.status} />}
                     />
             }
         </Box>

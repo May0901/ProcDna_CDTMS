@@ -1,4 +1,6 @@
 import axios from 'axios';
+
+// query to fetch clinical trials and assiciated participants
 const getAllClinicalTrialsQuery = `
     query {
         clinicalTrials {
@@ -25,6 +27,7 @@ export const api = axios.create({
     baseURL: 'http://localhost:8080/api'
 });
 
+// attach token to request headers
 api.interceptors.request.use(
     (config) => {
         const authToken = localStorage.getItem('token');
@@ -38,6 +41,7 @@ api.interceptors.request.use(
     }
 )
 
+// Response interceptor for prompting user to login again incase of token invalidation
 api.interceptors.response.use(
     (response) => response,
     (error) => {

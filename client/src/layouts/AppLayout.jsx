@@ -7,6 +7,8 @@ import { useAuthStore } from "../store";
 
 const AppLayout = () => {
     const authState = useAuthStore(state => state.authState);
+    const user = useAuthStore(state => state.user);
+
     const setAuthState = useAuthStore(state => state.setAuthState);
 
     const setUser = useAuthStore(state => state.setUser);
@@ -31,9 +33,13 @@ const AppLayout = () => {
                 </Typography>
                 <Box sx={{ display: 'flex', gap: '2rem', alignItems: 'center', justifyContent: 'center' }}>
                     {
-                        authState && <Button onClick={signout} sx={{ color: "#fff", backgroundColor: "#212121" }} variant="outlined">
-                            Signout
-                        </Button>
+                        authState && <>
+                            <Typography>
+                                Username: {user.name}
+                            </Typography>
+                            <Button onClick={signout} sx={{ color: "#fff", backgroundColor: "#212121" }} variant="outlined">
+                                Signout
+                            </Button></>
                     }
                 </Box>
             </Toolbar>

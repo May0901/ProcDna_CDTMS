@@ -1,0 +1,17 @@
+1. Require Docker and Docker Compose Tool (Must have)
+
+2. Clone Repository: https://github.com/May0901/ProcDna_CDTMS.git
+
+3. cd into project directory
+
+4. Run: docker compose up --build
+
+5. Access application on: http://localhost:5173
+
+6. Use below users for login:
+    i. email: mayankprasad@gmail.com, password: mayankprasad, role: viewer (limited access)
+
+    ii. email: kritikaprocdna@gmail.com, password: KritikaProcdna, role: admin (full access)
+
+
+6. To close application, Run: docker compose down

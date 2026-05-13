@@ -1,5 +1,6 @@
 const ParticipantService = require("./participant.service")
 
+// Create New Participant
 exports.createParticipant = async (req, res) => {
     try {
         const participantData = req.body;
@@ -19,6 +20,7 @@ exports.createParticipant = async (req, res) => {
     }
 }
 
+// Get All Participants (not used)
 exports.getParticipants = async (req, res) => {
     try {
         const participants = await ParticipantService.getParticipants();
@@ -31,6 +33,8 @@ exports.getParticipants = async (req, res) => {
     }
 };
 
+// delete participants 
+// Assuming one participant -> one clinical trial
 exports.deleteParticipantById = async (req, res) => {
     try {
         const id = req.params.participantId;

@@ -3,6 +3,11 @@ const pgsql = require('../../application/pgsql');
 const ClinicalTrial = require('../clinicalTrial.model');
 
 const Participant = pgsql.define('Participant', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
     name: DataTypes.STRING,
     age: DataTypes.INTEGER,
     gender: DataTypes.STRING,
@@ -21,6 +26,7 @@ const Participant = pgsql.define('Participant', {
     }
 });
 
+// Setting up Relationship
 ClinicalTrial.hasMany(Participant, {
     foreignKey: "clinicalTrialId",
     as: "participants",

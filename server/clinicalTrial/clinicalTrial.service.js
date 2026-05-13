@@ -6,6 +6,7 @@ exports.createNewTrial = async (trialData) => {
     return clinicalTrial.id;
 }
 
+// get all clinical trials and associated participants
 exports.getAllTrials = async () => {
     const clinicalTrials = await ClinicalTrial.findAll({
         include: [{

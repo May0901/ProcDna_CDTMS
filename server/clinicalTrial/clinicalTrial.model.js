@@ -1,6 +1,7 @@
 const { DataTypes, DATE } = require('sequelize');
 const pgsql = require("../application/pgsql");
 
+// clinical trial model
 const ClinicalTrial = pgsql.define("ClinicalTrial", {
     id: {
         type: DataTypes.INTEGER,

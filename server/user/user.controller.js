@@ -1,5 +1,6 @@
 const UserService = require("./user.service");
 
+// Create new user
 exports.createNewUser = async (req, res) => {
     try {
         const userInfo = req.body;
@@ -14,6 +15,7 @@ exports.createNewUser = async (req, res) => {
     }
 }
 
+// Authenticate user
 exports.authenticateUser = async (req, res) => {
     try {
         const userInfo = req.body;

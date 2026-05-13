@@ -10,6 +10,7 @@ import { deleteClinicalTrialById } from "../services/api";
 import { useAuthStore } from "../store";
 
 const ClinicalTrialListItem = ({ navigateTo, item, deleteItem }) => {
+    const { role } = useAuthStore(state => state.user)
     return <ListItem
         key={item.id}
         sx={{
@@ -19,7 +20,7 @@ const ClinicalTrialListItem = ({ navigateTo, item, deleteItem }) => {
             cursor: 'pointer'
         }}
         secondaryAction={
-            <IconButton
+            role === "admin" && <IconButton
                 onClick={() => deleteItem(item.id)}
             >
                 <DeleteIcon />

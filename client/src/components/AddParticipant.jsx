@@ -12,7 +12,6 @@ const AddParticipant = ({ refreshData, trialId }) => {
         age: "",
         gender: "",
         location: "",
-        enrollment_status: ""
     });
 
     const [dialogState, setDialogState] = useState(false);

@@ -1,5 +1,6 @@
 const { buildSchema } = require("graphql")
 
+// GraphQL Schema for clinical Trials and Partipcants
 module.exports = buildSchema(`
     type Participant {
         id: ID

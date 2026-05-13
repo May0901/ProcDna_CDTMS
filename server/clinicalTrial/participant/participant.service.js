@@ -5,7 +5,6 @@ exports.createParticipant = async (participantData) => {
     return participant.id;
 }
 
-
 exports.deleteParticipantById = async (id) => {
     const rowsDeleted = await Participant.destroy({
         where: {

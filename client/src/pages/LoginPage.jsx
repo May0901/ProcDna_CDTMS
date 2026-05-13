@@ -14,8 +14,8 @@ import { useNavigate } from 'react-router';
 
 const LoginPage = () => {
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('kritikaprocdna@gmail.com');
+    const [password, setPassword] = useState('KritikaProcdna');
     const setUser = useAuthStore(state => state.setUser);
     const setAuthState = useAuthStore(state => state.setAuthState);
 

@@ -1,17 +1,11 @@
 const express = require('express');
 const ParticipantContoller = require("./participant.controller")
+const protectRoute = require("../../middleware/protect.middleware")
 const router = express.Router({ mergeParams: true });
 
 router.post(
     "/",
-    (req, res, next) => {
-        if (req.user.role === "admin") {
-            next();
-        }
-        return res.json({
-            message: "Action not allowed"
-        })
-    },
+    protectRoute,
     ParticipantContoller.createParticipant
 )
 
@@ -22,6 +16,7 @@ router.get(
 
 router.delete(
     "/:participantId",
+    protectRoute,
     ParticipantContoller.deleteParticipantById
 )
 

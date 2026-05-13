@@ -4,6 +4,7 @@ const UserService = require("../user/user.service")
 const connectToMongoDB = async () => {
     try {
         mongoose.connection.on('connected', async () => {
+            // Pre creating users
             try {
                 const newUser = await Promise.all([
                     UserService.createNewUser({ name: 'Mayank Prasad', email: "mayankprasad@gmail.com", password: "MayankPrasad", role: "viewer" }),
@@ -23,7 +24,7 @@ const connectToMongoDB = async () => {
     }
     catch (err) {
         console.error(`Error: ${err.message}`);
-        process.exit(1); // Exit process with failure
+        process.exit(1);
     }
 }
 

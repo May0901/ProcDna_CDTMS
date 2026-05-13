@@ -2,9 +2,12 @@ const User = require("./user.model")
 const bcrypt = require('bcryptjs')
 const jwt = require("jsonwebtoken")
 
+// Create New User
 exports.createNewUser = async (userInfo) => {
     const { name, email, password, role } = userInfo;
 
+    // Don't store password in plain text form.
+    // Always store password in hashed form.
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
@@ -29,12 +32,14 @@ exports.validateUser = async (userInfo) => {
         return;
     }
 
+    // Comparing passed and stored password (hashed form)
     const passwordMatched = await bcrypt.compare(password, userDoc.password);
 
     if (!passwordMatched) {
         return;
     }
 
+    // Generating new token
     const token = jwt.sign(
         {
             id: userDoc._id,

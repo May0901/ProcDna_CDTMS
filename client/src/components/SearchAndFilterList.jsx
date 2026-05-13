@@ -23,11 +23,14 @@ const formatLabel = (label = "") => {
         .join(" ")
 }
 
+
+// generic component for searching and filtering lists
 const SearchAndFilterList = ({ listItem, navigateTo, onDelete, data = [], filterKey = [] }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const debouncedSearchTerm = useDebounce(searchTerm, 400);
     const [filtersApplied, setFiltersApplied] = useState({});
 
+    // Filters (dropdown select)
     const filters = useMemo(() => {
         return filterKey
             .map((key) => {
@@ -89,7 +92,6 @@ const SearchAndFilterList = ({ listItem, navigateTo, onDelete, data = [], filter
             ...prev,
             [key]: value
         }));
-
     }
 
     return (

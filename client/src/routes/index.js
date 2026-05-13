@@ -12,7 +12,6 @@ import NotFound from "../pages/NotFound";
 // If not authenticated redirect user to login page
 const checkSigninLoader = () => {
     const authToken = localStorage.getItem("token");
-    console.log(authToken)
     // No token
     if (!authToken) {
         return redirect("/signin");
@@ -77,7 +76,7 @@ const appRouter = createBrowserRouter([
                 Component: LoginPage
             },
             {
-                path: "*",
+                path: "*", //catch all route
                 Component: NotFound
             }
         ]
