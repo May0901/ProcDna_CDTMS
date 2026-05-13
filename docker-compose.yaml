@@ -1,0 +1,59 @@
+services:
+
+  frontend:
+    build: ./client
+    container_name: CDTMS-frontend
+
+    ports:
+      - "5173:5173"
+
+    depends_on:
+      - backend
+
+  backend:
+    build: ./server
+    container_name: CDTMS-backend
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - postgres
+      - mongo
+
+    environment:
+      PORT: 8080
+      JWT_SECRET: CTDMS-ProcDna
+      MONGO_URI: mongodb://mongo:27017/CTDMS
+      POSTGRES_DB: CTDMS
+      POSTGRES_USER: ProcDna
+      POSTGRES_PASSWORD: ProcDna
+      POSTGRES_HOST: postgres
+
+  mongo:
+    image: mongo:7
+    container_name: mongo
+
+    ports:
+      - "27017:27017"
+
+    volumes:
+      - mongo-data:/data/db
+
+  postgres:
+    image: postgres:16
+    container_name: postgres
+
+    ports:
+      - "5432:5432"
+
+    environment:
+      POSTGRES_DB: CTDMS
+      POSTGRES_USER: ProcDna
+      POSTGRES_PASSWORD: ProcDna
+
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  mongo-data:
+  postgres-data:
